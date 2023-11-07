@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    volumes:
+      - ./app:/app
+      - logs:/logs
+    depends_on:
+      - log-parser
+
+  log-parser:
+    build:
+      context: ./log-parser
+      dockerfile: Dockerfile
+    volumes:
+      - logs:/logs
+
+volumes:
+  logs:
